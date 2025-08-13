@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/models/appointment_model.dart';
 
 class AppointmentCard extends StatelessWidget {
   final AppointmentModel appointment;

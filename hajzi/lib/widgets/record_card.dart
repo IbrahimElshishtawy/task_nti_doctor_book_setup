@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/models/medical_record_model.dart';
 
 class RecordCard extends StatelessWidget {
   final MedicalRecordModel record;

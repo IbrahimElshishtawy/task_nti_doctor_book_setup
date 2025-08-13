@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/models/doctor_model.dart';
 
 class DoctorCard extends StatelessWidget {
   final DoctorModel doctor;
