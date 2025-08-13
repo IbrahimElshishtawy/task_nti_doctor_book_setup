@@ -15,12 +15,14 @@ class AuthService {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+
       UserModel user = UserModel(
         id: userCredential.user!.uid,
         name: name,
         email: email,
         role: role,
       );
+
       await _db.collection('users').doc(user.id).set(user.toJson());
       return user;
     } catch (e) {
@@ -34,17 +36,36 @@ class AuthService {
         email: email,
         password: password,
       );
+
       DocumentSnapshot doc = await _db
           .collection('users')
           .doc(userCredential.user!.uid)
           .get();
+
       return UserModel.fromJson(doc.data() as Map<String, dynamic>);
     } catch (e) {
       rethrow;
     }
   }
 
+  Future<UserModel?> getUserData(String userId) async {
+    try {
+      DocumentSnapshot doc = await _db.collection('users').doc(userId).get();
+
+      if (doc.exists) {
+        return UserModel.fromJson(doc.data() as Map<String, dynamic>);
+      }
+      return null;
+    } catch (e) {
+      throw Exception("Failed to fetch user data: $e");
+    }
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  User? getCurrentUser() {
+    return _auth.currentUser;
   }
 }

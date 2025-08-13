@@ -10,7 +10,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLoading());
     try {
       final user = await authService.getUserData(userId);
-      emit(UserLoaded(user));
+      emit(UserLoaded(user!));
     } catch (e) {
       emit(UserError(e.toString()));
     }

@@ -28,4 +28,8 @@ class AppointmentService {
   Future<void> updateAppointmentStatus(String id, String status) async {
     await _db.collection('appointments').doc(id).update({'status': status});
   }
+
+  Future<List<AppointmentModel>> getAppointments(String userId) {
+    return getAppointmentsByUser(userId);
+  }
 }
