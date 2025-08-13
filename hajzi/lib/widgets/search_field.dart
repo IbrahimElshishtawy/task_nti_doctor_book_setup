@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class SearchField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final bool isPassword;
-  final TextInputType keyboardType;
+  final Function(String)? onChanged;
 
-  const CustomTextField({
+  const SearchField({
     super.key,
     required this.controller,
-    required this.hintText,
-    this.isPassword = false,
-    this.keyboardType = TextInputType.text,
+    this.hintText = 'Search...',
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      obscureText: isPassword,
-      keyboardType: keyboardType,
+      onChanged: onChanged,
       decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.search),
         hintText: hintText,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         contentPadding: const EdgeInsets.symmetric(
