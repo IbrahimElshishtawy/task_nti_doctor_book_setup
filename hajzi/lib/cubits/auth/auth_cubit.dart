@@ -9,6 +9,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this._auth, this._firestore) : super(AuthInitial());
 
+  /// تسجيل مستخدم جديد
   Future<void> register({
     required String email,
     required String password,
@@ -22,6 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       await _firestore.collection('users').doc(userCred.user!.uid).set({
+        'uid': userCred.user!.uid, // تخزين UID
         'name': name,
         'email': email,
         'createdAt': FieldValue.serverTimestamp(),
@@ -33,6 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  /// تسجيل الدخول
   Future<void> login({required String email, required String password}) async {
     emit(AuthLoading());
     try {
@@ -40,6 +43,40 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
       emit(AuthFailure(e.message ?? 'Login failed'));
+    }
+  }
+
+  /// تسجيل الخروج
+  Future<void> logout() async {
+    try {
+      await _auth.signOut();
+      emit(AuthInitial());
+    } catch (e) {
+      emit(AuthFailure('Logout failed'));
+    }
+  }
+
+  /// التحقق من حالة المستخدم عند فتح التطبيق
+  void checkAuthStatus() {
+    if (_auth.currentUser != null) {
+      emit(AuthSuccess());
+    } else {
+      emit(AuthInitial());
+    }
+  }
+
+  /// جلب بيانات المستخدم الحالي
+  Future<Map<String, dynamic>?> getUserData() async {
+    try {
+      final uid = _auth.currentUser?.uid;
+      if (uid != null) {
+        final doc = await _firestore.collection('users').doc(uid).get();
+        return doc.data();
+      }
+      return null;
+    } catch (e) {
+      emit(AuthFailure('Failed to fetch user data'));
+      return null;
     }
   }
 }

@@ -5,7 +5,21 @@ import 'dart:math' as math;
 
 class BackgroundAnimation extends StatefulWidget {
   final Widget child;
-  const BackgroundAnimation({Key? key, required this.child}) : super(key: key);
+  final List<Color> colors;
+  final double circleOpacity1;
+  final double circleOpacity2;
+  final double circleRadius;
+  final double speed;
+
+  const BackgroundAnimation({
+    super.key,
+    required this.child,
+    this.colors = const [Color(0xFF00C6A2), Color(0xFF007C91)],
+    this.circleOpacity1 = 0.1,
+    this.circleOpacity2 = 0.15,
+    this.circleRadius = 150,
+    this.speed = 6,
+  });
 
   @override
   State<BackgroundAnimation> createState() => _BackgroundAnimationState();
@@ -20,7 +34,7 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 6),
+      duration: Duration(seconds: widget.speed.toInt()),
     )..repeat();
   }
 
@@ -36,9 +50,9 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
       children: [
         // Gradient background
         Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF00C6A2), Color(0xFF007C91)],
+              colors: widget.colors,
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -49,7 +63,12 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
           builder: (context, child) {
             return CustomPaint(
               size: MediaQuery.of(context).size,
-              painter: _BackgroundPainter(_controller.value),
+              painter: _BackgroundPainter(
+                progress: _controller.value,
+                circleOpacity1: widget.circleOpacity1,
+                circleOpacity2: widget.circleOpacity2,
+                circleRadius: widget.circleRadius,
+              ),
             );
           },
         ),
@@ -61,14 +80,22 @@ class _BackgroundAnimationState extends State<BackgroundAnimation>
 
 class _BackgroundPainter extends CustomPainter {
   final double progress;
-  _BackgroundPainter(this.progress);
+  final double circleOpacity1;
+  final double circleOpacity2;
+  final double circleRadius;
+
+  _BackgroundPainter({
+    required this.progress,
+    required this.circleOpacity1,
+    required this.circleOpacity2,
+    required this.circleRadius,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.white.withOpacity(0.1);
-    final paint2 = Paint()..color = Colors.white.withOpacity(0.15);
+    final paint1 = Paint()..color = Colors.white.withOpacity(circleOpacity1);
+    final paint2 = Paint()..color = Colors.white.withOpacity(circleOpacity2);
 
-    final radius = 150;
     final offset1 = Offset(
       size.width * 0.5 + math.sin(progress * 2 * math.pi) * 50,
       size.height * 0.2,
@@ -78,8 +105,8 @@ class _BackgroundPainter extends CustomPainter {
       size.height * 0.75,
     );
 
-    canvas.drawCircle(offset1, radius.toDouble(), paint);
-    canvas.drawCircle(offset2, radius.toDouble(), paint2);
+    canvas.drawCircle(offset1, circleRadius, paint1);
+    canvas.drawCircle(offset2, circleRadius, paint2);
   }
 
   @override

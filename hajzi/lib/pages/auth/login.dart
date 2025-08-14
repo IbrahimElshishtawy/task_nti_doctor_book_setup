@@ -1,15 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hajzi/pages/auth/animation/login_animation.dart';
+import 'package:hajzi/pages/auth/widget/login_widgets.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _hideKeyboard() {
+    FocusScope.of(context).unfocus();
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter your email";
+    }
+    final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+    if (!emailRegex.hasMatch(value)) {
+      return "Invalid email format";
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,36 +79,42 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 60),
 
+                      // Social Login Buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _socialButton(
+                          socialButton(
                             color: Colors.red,
                             icon: Icons.g_mobiledata,
                             text: "Google",
-                            onTap: () {},
+                            onTap: () {
+                              // TODO: Add Google Sign-In
+                            },
                           ),
                           const SizedBox(width: 10),
-                          _socialButton(
+                          socialButton(
                             color: Colors.blue,
                             icon: Icons.facebook,
                             text: "Facebook",
-                            onTap: () {},
+                            onTap: () {
+                              // TODO: Add Facebook Sign-In
+                            },
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
 
-                      _customField(
+                      // Email
+                      customField(
                         controller: emailController,
                         label: "Email",
                         icon: Icons.email,
-                        validator: (v) =>
-                            v!.isEmpty ? "Please enter your email" : null,
+                        validator: _validateEmail,
                       ),
                       const SizedBox(height: 30),
 
-                      _customField(
+                      // Password
+                      customField(
                         controller: passwordController,
                         label: "Password",
                         icon: Icons.lock,
@@ -103,11 +137,13 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
 
+                      // Login Button
                       state is AuthLoading
                           ? const Center(child: CircularProgressIndicator())
                           : ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
+                                  _hideKeyboard();
                                   context.read<AuthCubit>().login(
                                     email: emailController.text.trim(),
                                     password: passwordController.text.trim(),
@@ -129,6 +165,7 @@ class LoginPage extends StatelessWidget {
                             ),
                       const SizedBox(height: 15),
 
+                      // Register Redirect
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -158,49 +195,6 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _socialButton({
-    required Color color,
-    required IconData icon,
-    required String text,
-    required VoidCallback onTap,
-  }) {
-    return ElevatedButton.icon(
-      onPressed: onTap,
-      icon: Icon(icon, size: 24, color: Colors.white),
-      label: Text(text, style: const TextStyle(color: Colors.white)),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      ),
-    );
-  }
-
-  Widget _customField({
-    required TextEditingController controller,
-    required String label,
-    required IconData icon,
-    bool obscure = false,
-    String? Function(String?)? validator,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscure,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.white70),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-        prefixIcon: Icon(icon, color: Colors.white),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white70),
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      validator: validator,
     );
   }
 }
