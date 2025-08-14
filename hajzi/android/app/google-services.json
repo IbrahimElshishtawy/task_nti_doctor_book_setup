@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "282015596975",
+    "firebase_url": "https://hajzi-doctor-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "hajzi-doctor",
+    "storage_bucket": "hajzi-doctor.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282015596975:android:dbfa88bce4c64a3ffe2f5a",
+        "android_client_info": {
+          "package_name": "com.example.hajzi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282015596975-46q9del2025mk2rhrut5et6ubmc2fa6d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_25jrLIlABeJm1VrQwGw-Bc_yaRojsdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282015596975-46q9del2025mk2rhrut5et6ubmc2fa6d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
