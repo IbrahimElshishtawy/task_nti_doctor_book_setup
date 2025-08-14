@@ -11,26 +11,24 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
+  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    // Animation إعداد
+    // إعداد أنيميشن الوميض (Pulse)
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    );
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
 
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutBack,
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.95,
+      end: 1.05,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
-    _controller.forward();
-
-    // انتقال بعد 3 ثواني
+    // الانتقال بعد 3 ثواني
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/onboarding');
     });
@@ -47,58 +45,43 @@ class _SplashPageState extends State<SplashPage>
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
+      backgroundColor: Colors.white, // الخلفية بيضاء
       body: Center(
-        child: ScaleTransition(
-          scale: _animation,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // لوجو
-              Container(
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 15,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Image.asset(
-                    'assets/icons/image.png', // ضع مسار اللوجو هنا
-                    fit: BoxFit.contain,
-                  ),
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // صورة بوميض بدون أي خلفية
+            ScaleTransition(
+              scale: _scaleAnimation,
+              child: Image.asset(
+                'assets/icons/image.png', // مسار اللوجو
+                width: 270,
+                height: 270,
+                fit: BoxFit.contain,
               ),
-              const SizedBox(height: 20),
+            ),
 
-              // نص اسم التطبيق
-              Text(
-                "MediCare App",
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+            const SizedBox(height: 1),
+
+            // نص اسم التطبيق
+            Text(
+              "MediCare App",
+              style: theme.textTheme.headlineSmall?.copyWith(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
               ),
+            ),
 
-              const SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-              // نص فرعي
-              Text(
-                "Your health, our priority",
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white70,
-                ),
+            // النص الفرعي
+            Text(
+              "Your health, our priority",
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: Colors.grey[600],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

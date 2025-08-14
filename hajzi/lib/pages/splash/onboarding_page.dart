@@ -11,6 +11,10 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   final controller = OnboardingController();
 
+  void _goToLogin() {
+    Navigator.pushReplacementNamed(context, '/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -131,8 +135,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 width: double.infinity,
                 height: 55,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      controller.nextPage(context, () => setState(() {})),
+                  onPressed: () {
+                    if (controller.currentPage == controller.pages.length - 1) {
+                      _goToLogin(); // آخر صفحة → يروح للوجن
+                    } else {
+                      controller.nextPage(context, () => setState(() {}));
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF00C6A2),
                     shape: RoundedRectangleBorder(
@@ -149,7 +158,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
             TextButton(
-              onPressed: () => controller.skip(context),
+              onPressed: _goToLogin, // لو ضغط Skip يروح للوجن مباشرة
               child: const Text(
                 "Skip",
                 style: TextStyle(color: Colors.grey, fontSize: 15),
