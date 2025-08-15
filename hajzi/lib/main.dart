@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hajzi/pages/auth/Register_page.dart';
 
 // Cubits
@@ -35,8 +36,11 @@ class HajziApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
-          create: (_) =>
-              AuthCubit(FirebaseAuth.instance, FirebaseFirestore.instance),
+          create: (_) => AuthCubit(
+            FirebaseAuth.instance,
+            FirebaseFirestore.instance,
+            GoogleSignIn.instance, // ← هنا نستخدم instance
+          ),
         ),
       ],
       child: MaterialApp(

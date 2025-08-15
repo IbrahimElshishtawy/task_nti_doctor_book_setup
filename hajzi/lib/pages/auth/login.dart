@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hajzi/pages/auth/animation/login_animation.dart';
+
 import 'package:hajzi/pages/auth/widget/login_widgets.dart';
+import 'package:hajzi/services/auth_service.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 
@@ -87,8 +91,23 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.red,
                             icon: Icons.g_mobiledata,
                             text: "Google",
-                            onTap: () {
-                              // TODO: Add Google Sign-In
+                            onTap: () async {
+                              try {
+                                context.read<AuthCubit>().setLoading(true);
+                                await context
+                                    .read<AuthService>()
+                                    .signInWithGoogle();
+                                context.read<AuthCubit>().setLoading(false);
+                              } catch (e) {
+                                context.read<AuthCubit>().setLoading(false);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'فشل تسجيل الدخول عبر Google: $e',
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                           ),
                           const SizedBox(width: 10),

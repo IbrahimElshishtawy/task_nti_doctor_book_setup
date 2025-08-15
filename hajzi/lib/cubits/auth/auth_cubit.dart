@@ -1,13 +1,19 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'auth_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hajzi/cubits/auth/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
+  final GoogleSignIn _googleSignIn;
 
-  AuthCubit(this._auth, this._firestore) : super(AuthInitial());
+  bool _isLoading = false;
+
+  AuthCubit(this._auth, this._firestore, this._googleSignIn)
+    : super(AuthInitial());
 
   /// تسجيل مستخدم جديد
   Future<void> register({
@@ -23,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       await _firestore.collection('users').doc(userCred.user!.uid).set({
-        'uid': userCred.user!.uid, // تخزين UID
+        'uid': userCred.user!.uid,
         'name': name,
         'email': email,
         'createdAt': FieldValue.serverTimestamp(),
@@ -35,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  /// تسجيل الدخول
+  /// تسجيل الدخول بالبريد وكلمة المرور
   Future<void> login({required String email, required String password}) async {
     emit(AuthLoading());
     try {
@@ -46,10 +52,42 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+      final GoogleSignInAccount account = await googleSignIn.authenticate();
+
+      final GoogleSignInAuthentication auth = account.authentication;
+      final String? accessToken = auth.accessToken;
+      final String? idToken = auth.idToken;
+
+      if (accessToken != null && idToken != null) {
+        final credential = GoogleAuthProvider.credential(
+          idToken: idToken,
+          accessToken: accessToken,
+        );
+
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        if (kDebugMode) {
+          print('تم تسجيل الدخول بنجاح');
+        }
+      } else {
+        if (kDebugMode) {
+          print('فشل في الحصول على الرموز المميزة');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('خطأ: $e');
+      }
+    }
+  }
+
   /// تسجيل الخروج
   Future<void> logout() async {
     try {
       await _auth.signOut();
+      await _googleSignIn.signOut();
       emit(AuthInitial());
     } catch (e) {
       emit(AuthFailure('Logout failed'));
@@ -79,4 +117,18 @@ class AuthCubit extends Cubit<AuthState> {
       return null;
     }
   }
+
+  /// تحديث حالة التحميل
+  void setLoading(bool value) {
+    _isLoading = value;
+    if (_isLoading) {
+      emit(AuthLoading());
+    } else {
+      emit(AuthInitial());
+    }
+  }
+}
+
+extension on GoogleSignInAuthentication {
+  String? get accessToken => null;
 }
