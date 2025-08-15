@@ -7,6 +7,7 @@ class LoginHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
+        SizedBox(height: 50),
         Text(
           "Welcome back",
           style: TextStyle(
@@ -22,6 +23,7 @@ class LoginHeader extends StatelessWidget {
           style: TextStyle(fontSize: 14, color: Colors.white70),
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: 40),
       ],
     );
   }

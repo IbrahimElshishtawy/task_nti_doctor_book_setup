@@ -4,8 +4,9 @@ import 'package:hajzi/cubits/auth/auth_cubit.dart';
 import 'package:hajzi/cubits/auth/auth_state.dart';
 import 'package:hajzi/pages/auth/animation/login_animation.dart';
 import 'package:hajzi/pages/auth/google/register_social_buttons.dart';
-import 'package:hajzi/pages/auth/widget/register_form_fields.dart';
-import 'package:hajzi/pages/auth/widget/register_header.dart';
+import 'package:hajzi/pages/auth/widget/from/register_form_fields.dart';
+
+import 'package:hajzi/pages/auth/widget/header/register_header.dart';
 
 import 'package:hajzi/pages/auth/widget/register_terms.dart';
 
@@ -49,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       const RegisterHeader(),
                       const RegisterSocialButtons(),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20),
                       RegisterFormFields(
                         nameController: nameController,
                         emailController: emailController,
