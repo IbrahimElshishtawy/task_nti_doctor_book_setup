@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hajzi/cubits/auth/auth_cubit.dart';
 import 'package:hajzi/cubits/auth/auth_state.dart';
 import 'package:hajzi/pages/auth/animation/login_animation.dart';
+import 'package:hajzi/pages/auth/google/register_social_buttons.dart';
 import 'package:hajzi/pages/auth/widget/register_form_fields.dart';
 import 'package:hajzi/pages/auth/widget/register_header.dart';
-import 'package:hajzi/pages/auth/widget/register_social_buttons.dart';
+
 import 'package:hajzi/pages/auth/widget/register_terms.dart';
 
 class RegisterPage extends StatefulWidget {
