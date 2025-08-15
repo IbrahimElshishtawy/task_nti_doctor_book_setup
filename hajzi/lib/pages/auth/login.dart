@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hajzi/pages/auth/animation/login_animation.dart';
-
 import 'package:hajzi/pages/auth/widget/login_widgets.dart';
 import 'package:hajzi/services/auth_service.dart';
 import '../../cubits/auth/auth_cubit.dart';
@@ -20,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -123,23 +123,44 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 20),
 
-                      // Email
-                      customField(
+                      // Email Field (icon on the right)
+                      TextFormField(
                         controller: emailController,
-                        label: "Email",
-                        icon: Icons.email,
                         validator: _validateEmail,
+                        decoration: const InputDecoration(
+                          labelText: "Email",
+                          prefixIcon: Icon(
+                            Icons.email,
+                          ), // icon on the right with RTL
+                        ),
+                        textDirection: TextDirection.rtl,
                       ),
                       const SizedBox(height: 30),
 
-                      // Password
-                      customField(
+                      // Password Field with toggle eye
+                      TextFormField(
                         controller: passwordController,
-                        label: "Password",
-                        icon: Icons.lock,
-                        obscure: true,
+                        obscureText: _obscurePassword,
                         validator: (v) =>
                             v!.isEmpty ? "Please enter your password" : null,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          icon: _obscurePassword
+                              ? const Icon(Icons.lock)
+                              : null,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 20),
 
