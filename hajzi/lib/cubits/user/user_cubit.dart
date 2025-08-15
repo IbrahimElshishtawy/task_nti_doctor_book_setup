@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../services/auth_service.dart';
+import '../../pages/auth/google/auth_service.dart';
 import 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {

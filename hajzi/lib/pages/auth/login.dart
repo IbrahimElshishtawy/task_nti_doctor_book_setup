@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hajzi/pages/auth/animation/login_animation.dart';
 import 'package:hajzi/pages/auth/widget/login_widgets.dart';
-import 'package:hajzi/services/auth_service.dart';
+import 'package:hajzi/pages/auth/google/auth_service.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 
