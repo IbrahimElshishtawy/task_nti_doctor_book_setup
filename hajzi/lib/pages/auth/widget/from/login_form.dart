@@ -25,7 +25,10 @@ class LoginForm extends StatelessWidget {
           validator: validateEmail,
           decoration: const InputDecoration(
             labelText: "Email",
-            prefixIcon: Icon(Icons.email),
+            prefixIcon: Icon(
+              Icons.email,
+              color: Color.fromARGB(212, 254, 254, 255),
+            ),
           ),
         ),
         const SizedBox(height: 20),

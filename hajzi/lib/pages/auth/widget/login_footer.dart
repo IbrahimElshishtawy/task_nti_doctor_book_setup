@@ -28,7 +28,7 @@ class LoginFooter extends StatelessWidget {
                 ),
                 child: const Text("Login", style: TextStyle(fontSize: 16)),
               ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 35),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,6 +36,7 @@ class LoginFooter extends StatelessWidget {
               "Don't have an account? ",
               style: TextStyle(color: Colors.white),
             ),
+
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/register');

@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 50),
                       const LoginHeader(),
                       const SizedBox(height: 30),
-                      const LoginSocialButtons(),
+                      LoginSocialButtons(),
                       const SizedBox(height: 20),
                       LoginForm(
                         emailController: emailController,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/auth/google/auth_service.dart';
 
 class RegisterSocialButtons extends StatelessWidget {
-  const RegisterSocialButtons({super.key});
+  RegisterSocialButtons({super.key});
+
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +12,16 @@ class RegisterSocialButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () async {
+            try {
+              await _authService.signInWithGoogle();
+              Navigator.pushReplacementNamed(context, '/home');
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('فشل تسجيل الحساب بجوجل: $e')),
+              );
+            }
+          },
           icon: const Icon(Icons.g_mobiledata),
           label: const Text("Google"),
           style: ElevatedButton.styleFrom(
@@ -19,7 +31,9 @@ class RegisterSocialButtons extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            // TODO: Facebook Sign-In
+          },
           icon: const Icon(Icons.facebook),
           label: const Text("Facebook"),
           style: ElevatedButton.styleFrom(

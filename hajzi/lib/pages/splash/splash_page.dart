@@ -55,8 +55,8 @@ class _SplashPageState extends State<SplashPage>
               scale: _scaleAnimation,
               child: Image.asset(
                 'assets/icons/image.png', // مسار اللوجو
-                width: 270,
-                height: 270,
+                width: 230,
+                height: 230,
                 fit: BoxFit.contain,
               ),
             ),

@@ -49,7 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: ListView(
                     children: [
                       const RegisterHeader(),
-                      const RegisterSocialButtons(),
+                      RegisterSocialButtons(),
                       SizedBox(height: 20),
                       RegisterFormFields(
                         nameController: nameController,

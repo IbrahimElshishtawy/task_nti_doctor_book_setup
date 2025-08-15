@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/auth/google/auth_service.dart';
 
 class LoginSocialButtons extends StatelessWidget {
-  const LoginSocialButtons({super.key});
+  final AuthService _authService = AuthService(); // عمل instance هنا
+
+  LoginSocialButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +12,21 @@ class LoginSocialButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton.icon(
-          onPressed: () {
-            // TODO: Google Sign-In
+          onPressed: () async {
+            try {
+              await _authService.signInWithGoogle();
+              Navigator.pushReplacementNamed(context, '/home');
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('فشل تسجيل الدخول بجوجل: $e')),
+              );
+            }
           },
           icon: const Icon(Icons.g_mobiledata),
           label: const Text("Google"),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+            foregroundColor: const Color.fromARGB(255, 209, 45, 45),
           ),
         ),
         const SizedBox(width: 10),
@@ -28,7 +38,7 @@ class LoginSocialButtons extends StatelessWidget {
           label: const Text("Facebook"),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+            foregroundColor: const Color.fromARGB(255, 22, 7, 221),
           ),
         ),
       ],
