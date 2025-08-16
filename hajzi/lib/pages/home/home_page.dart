@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/home/controls/Feature_Doctor.dart';
+import 'package:hajzi/pages/home/controls/Live_Doctor.dart';
+import 'package:hajzi/pages/home/controls/Popular_Doctor.dart';
+import 'package:hajzi/pages/home/controls/custom_btn.dart';
 import 'package:hajzi/pages/home/controls/header_home_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,114 +29,9 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    height: 140,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: const [
-                        LiveDoctorCard(image: "assets/icons/image.png"),
-                        LiveDoctorCard(image: "assets/icons/image.png"),
-                        LiveDoctorCard(image: "assets/icons/image.png"),
-                      ],
-                    ),
-                  ),
+                  LiveDoctor(),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    height: 100, // ارتفاع العنصر للحفاظ على المساحة
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      children: [
-                        // أول عنصر: صندوق أزرق مع أيقونة أسنان
-                        Container(
-                          width: 80,
-                          height: 80,
-                          margin: const EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.medical_services,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                        ),
-
-                        // ثاني عنصر: صندوق أخضر مع أيقونة قلب
-                        Container(
-                          width: 80,
-                          height: 80,
-                          margin: const EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                            onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => const HeartPage()),
-                              // );
-                            },
-                          ),
-                        ),
-
-                        // ثالث عنصر: صندوق أصفر مع أيقونة عين
-                        Container(
-                          width: 80,
-                          height: 80,
-                          margin: const EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                            color: Colors.yellow.shade700,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.remove_red_eye,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                            onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => const EyePage()),
-                              // );
-                            },
-                          ),
-                        ),
-
-                        // رابع عنصر: صندوق برتقالي مع أيقونة بادي (Play)
-                        Container(
-                          width: 80,
-                          height: 80,
-                          margin: const EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                            onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => const StartPage()),
-                              // );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  buttom(),
 
                   const SizedBox(height: 20),
                   const Text(
@@ -140,51 +39,14 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  Column(
-                    children: const [
-                      PopularDoctorCard(
-                        name: "Dr. Fillerup Grab",
-                        specialty: "Medicine Specialist",
-                        rating: 4.5,
-                        image: "assets/icons/image.png",
-                      ),
-                      PopularDoctorCard(
-                        name: "Dr. Blessing",
-                        specialty: "Dentist Specialist",
-                        rating: 4.8,
-                        image: "assets/icons/image.png",
-                      ),
-                    ],
-                  ),
+                  PopularDoctor(),
                   const SizedBox(height: 20),
                   const Text(
                     "Feature Doctor",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    height: 120,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: const [
-                        FeatureDoctorCard(
-                          name: "Dr. Crick",
-                          rating: 3.7,
-                          image: "assets/icons/image.png",
-                        ),
-                        FeatureDoctorCard(
-                          name: "Dr. Strain",
-                          rating: 3.0,
-                          image: "assets/icons/image.png",
-                        ),
-                        FeatureDoctorCard(
-                          name: "Dr. Lachinet",
-                          rating: 2.9,
-                          image: "assets/icons/image.png",
-                        ),
-                      ],
-                    ),
-                  ),
+                  FeatureDoctor(),
                   const SizedBox(height: 20),
                 ],
               ),
