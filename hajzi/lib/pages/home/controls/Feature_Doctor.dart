@@ -15,17 +15,17 @@ class FeatureDoctor extends StatelessWidget {
           FeatureDoctorCard(
             name: "Dr. Crick",
             rating: 3.7,
-            image: "assets/icons/image.png",
+            image: "assets/images/feture2.png",
           ),
           FeatureDoctorCard(
             name: "Dr. Strain",
             rating: 3.0,
-            image: "assets/icons/image.png",
+            image: "assets/images/feture3.png",
           ),
           FeatureDoctorCard(
             name: "Dr. Lachinet",
             rating: 2.9,
-            image: "assets/icons/image.png",
+            image: "assets/images/feture4.png",
           ),
         ],
       ),

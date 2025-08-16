@@ -12,9 +12,9 @@ class LiveDoctor extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: const [
-          LiveDoctorCard(image: "assets/icons/image.png"),
-          LiveDoctorCard(image: "assets/icons/image.png"),
-          LiveDoctorCard(image: "assets/icons/image.png"),
+          LiveDoctorCard(image: "assets/images/imageLive1.png"),
+          LiveDoctorCard(image: "assets/images/imageLive2.png"),
+          LiveDoctorCard(image: "assets/images/imageLive3.png"),
         ],
       ),
     );

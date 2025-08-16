@@ -13,13 +13,13 @@ class PopularDoctor extends StatelessWidget {
           name: "Dr. Fillerup Grab",
           specialty: "Medicine Specialist",
           rating: 4.5,
-          image: "assets/icons/image.png",
+          image: "assets/images/imagepopular1.png",
         ),
         PopularDoctorCard(
           name: "Dr. Blessing",
           specialty: "Dentist Specialist",
           rating: 4.8,
-          image: "assets/icons/image.png",
+          image: "assets/images/imagepopular2.png",
         ),
       ],
     );
