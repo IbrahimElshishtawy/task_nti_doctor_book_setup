@@ -1,6 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/home/Detiles_doctor.dart';
+import 'package:hajzi/pages/home/controls/header_home_page.dart';
 
 // ================== الصفحة الرئيسية ==================
 class HomeView extends StatelessWidget {
@@ -12,7 +14,7 @@ class HomeView extends StatelessWidget {
       backgroundColor: Colors.grey[50],
       body: CustomScrollView(
         slivers: [
-          _buildHeader(),
+          HeaderHomePage(), // ✅ هنا التعديل
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -103,81 +105,6 @@ class HomeView extends StatelessWidget {
             label: "Profile",
           ),
         ],
-      ),
-    );
-  }
-
-  // ================== الهيدر ==================
-  Widget _buildHeader() {
-    return SliverAppBar(
-      expandedHeight: 220,
-      pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF2F802B), Color(0xFF0D7E3A)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 26,
-                    backgroundImage: AssetImage("assets/images/feture2.png"),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text(
-                    "Hi, Ahmed",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.notifications_outlined,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Container(
-                height: 50,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: const [
-                    Icon(Icons.search, color: Colors.grey),
-                    SizedBox(width: 10),
-                    Text(
-                      "Search doctor or health issue",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -305,59 +232,6 @@ class HomeView extends StatelessWidget {
             Text(
               specialty,
               style: const TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ================== صفحة تفاصيل الدكتور ==================
-class DoctorDetailsView extends StatelessWidget {
-  final String image;
-  final String name;
-  final String specialty;
-
-  const DoctorDetailsView({
-    super.key,
-    required this.image,
-    required this.name,
-    required this.specialty,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF2F802B),
-        title: Text(name),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Hero(
-              tag: image,
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage(image),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              name,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              specialty,
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              "Dr. $name is one of the best in their field with years of experience and hundreds of happy patients.",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: Colors.black87),
             ),
           ],
         ),
