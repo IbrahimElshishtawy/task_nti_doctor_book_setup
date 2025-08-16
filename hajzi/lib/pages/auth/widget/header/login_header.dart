@@ -19,7 +19,7 @@ class LoginHeader extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          "Sign in to continue",
+          "You can search c ourse, apply course and find scholarship for abroad studies",
           style: TextStyle(fontSize: 14, color: Colors.white70),
           textAlign: TextAlign.center,
         ),
