@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class buttom extends StatelessWidget {
-  const buttom({super.key});
+class FutureBtn extends StatelessWidget {
+  const FutureBtn({super.key});
 
   @override
   Widget build(BuildContext context) {

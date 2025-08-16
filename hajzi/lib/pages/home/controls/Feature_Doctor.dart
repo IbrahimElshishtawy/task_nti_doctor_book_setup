@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hajzi/pages/home/home_page.dart';
+
+import 'package:hajzi/pages/home/widget/FeatureDoctorCard.dart';
 
 class FeatureDoctor extends StatelessWidget {
   const FeatureDoctor({super.key});

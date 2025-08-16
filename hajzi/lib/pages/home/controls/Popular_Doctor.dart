@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hajzi/pages/home/home_page.dart';
+
+import 'package:hajzi/pages/home/widget/PopularDoctorCard.dart';
 
 class PopularDoctor extends StatelessWidget {
   const PopularDoctor({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hajzi/pages/home/home_page.dart';
+
+import 'package:hajzi/pages/home/widget/LiveDoctorCard.dart';
 
 class LiveDoctor extends StatelessWidget {
   const LiveDoctor({super.key});
