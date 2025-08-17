@@ -1,4 +1,4 @@
-import '../../models/doctor_model.dart';
+import 'package:hajzi/pages/find_search/models/doctor.dart';
 
 abstract class DoctorState {}
 

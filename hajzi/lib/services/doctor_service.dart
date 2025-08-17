@@ -1,38 +1,38 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/doctor_model.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:hajzi/pages/find_search/models/doctor.dart';
 
-class DoctorService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+// class DoctorService {
+//   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<List<DoctorModel>> getDoctors() async {
-    try {
-      QuerySnapshot snapshot = await _db.collection('doctors').get();
+//   Future<List<DoctorModel>?> getDoctors() async {
+//     try {
+//       QuerySnapshot snapshot = await _db.collection('doctors').get();
 
-      return snapshot.docs.map((doc) {
-        return DoctorModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).toList();
-    } catch (e) {
-      throw Exception("Failed to fetch doctors: $e");
-    }
-  }
+//       return snapshot.docs.map((doc) {
+//         return DoctorModel.fromJson(doc.data() as Map<String, dynamic>);
+//       }).toList();
+//     } catch (e) {
+//       throw Exception("Failed to fetch doctors: $e");
+//     }
+//   }
 
-  Future<DoctorModel?> getDoctorById(String id) async {
-    try {
-      DocumentSnapshot doc = await _db.collection('doctors').doc(id).get();
-      if (doc.exists) {
-        return DoctorModel.fromJson(doc.data() as Map<String, dynamic>);
-      }
-      return null;
-    } catch (e) {
-      throw Exception("Failed to fetch doctor: $e");
-    }
-  }
+//   Future<DoctorModel?> getDoctorById(String id) async {
+//     try {
+//       DocumentSnapshot doc = await _db.collection('doctors').doc(id).get();
+//       if (doc.exists) {
+//         return DoctorModel.fromJson(doc.data() as Map<String, dynamic>);
+//       }
+//       return null;
+//     } catch (e) {
+//       throw Exception("Failed to fetch doctor: $e");
+//     }
+//   }
 
-  Future<void> addDoctor(DoctorModel doctor) async {
-    try {
-      await _db.collection('doctors').doc(doctor.id).set(doctor.toJson());
-    } catch (e) {
-      throw Exception("Failed to add doctor: $e");
-    }
-  }
-}
+//   Future<void> addDoctor(DoctorModel doctor) async {
+//     try {
+//       await _db.collection('doctors').doc(doctor.id).set(doctor.toJson());
+//     } catch (e) {
+//       throw Exception("Failed to add doctor: $e");
+//     }
+//   }
+// }

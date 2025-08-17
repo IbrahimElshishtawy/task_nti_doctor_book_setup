@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/find_search/Find_Doctors_Page.dart';
 import 'package:hajzi/pages/home/controls/Feature_Doctor.dart';
 import 'package:hajzi/pages/home/controls/Live_Doctor.dart';
 import 'package:hajzi/pages/home/controls/Popular_Doctor.dart';
@@ -63,11 +64,7 @@ class _HomePageState extends State<HomePage> {
             onSearchTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    appBar: AppBar(title: const Text('Search Page')),
-                  ),
-                ),
+                MaterialPageRoute(builder: (context) => FindDoctorsPage()),
               );
             },
           ),
