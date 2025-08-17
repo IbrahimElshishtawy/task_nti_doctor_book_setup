@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage>
               ),
             ),
 
-            const SizedBox(height: 1),
+            const SizedBox(height: 10),
 
             // نص اسم التطبيق
             Text(

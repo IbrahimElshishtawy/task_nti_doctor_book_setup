@@ -5,8 +5,53 @@ import 'package:hajzi/pages/home/controls/Popular_Doctor.dart';
 import 'package:hajzi/pages/home/controls/future_btn.dart';
 import 'package:hajzi/pages/home/controls/header_home_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  void navigateToPage(BuildContext context, String pageName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(title: Text(pageName)),
+          body: Center(child: Text('صفحة $pageName')),
+        ),
+      ),
+    );
+  }
+
+  Widget sectionHeader(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          InkWell(
+            onTap: () => navigateToPage(context, title),
+            child: const Text(
+              "More",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,74 +59,75 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.grey[100],
       body: CustomScrollView(
         slivers: [
-          // هنا HeaderHomePage مباشرة لأنه SliverAppBar
-          HeaderHomePage(),
+          const HeaderHomePage(),
 
-          // باقي المحتوى
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Live Doctors",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  LiveDoctor(),
-                  const SizedBox(height: 10),
-                  FutureBtn(),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Popular Doctor",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  PopularDoctor(),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Feature Doctor",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  FeatureDoctor(),
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              const SizedBox(height: 10),
+
+              // Live Doctors Section
+              sectionHeader(context, "Live Doctors"),
+              const SizedBox(height: 10),
+              const LiveDoctor(),
+              const SizedBox(height: 10),
+              const FutureBtn(),
+              const SizedBox(height: 20),
+
+              // Popular Doctor Section
+              sectionHeader(context, "Popular Doctor"),
+              const SizedBox(height: 10),
+              const PopularDoctor(),
+              const SizedBox(height: 20),
+
+              // Feature Doctor Section
+              sectionHeader(context, "Feature Doctor"),
+              const SizedBox(height: 10),
+              const FeatureDoctor(),
+              const SizedBox(height: 20),
+            ]),
           ),
         ],
       ),
+
+      // Bottom Navigation Bar مع دائرة خضراء حول الأيقونة المحددة
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color.fromARGB(255, 136, 136, 153)),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-              color: Color.fromARGB(255, 136, 136, 153),
-            ),
-            label: "Favorite",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book, color: Color.fromARGB(255, 136, 136, 153)),
-            label: "Book",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.message,
-              color: Color.fromARGB(255, 136, 136, 153),
-            ),
-            label: "Messages",
-          ),
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        backgroundColor: Colors.white,
+        items: [
+          _buildNavItem(Icons.home, "Home", 0),
+          _buildNavItem(Icons.favorite, "Favorite", 1),
+          _buildNavItem(Icons.book, "Book", 2),
+          _buildNavItem(Icons.message, "Messages", 3),
         ],
       ),
     );
   }
-}
 
-// تعريف الكروت
+  BottomNavigationBarItem _buildNavItem(
+    IconData icon,
+    String label,
+    int index,
+  ) {
+    return BottomNavigationBarItem(
+      icon: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: _currentIndex == index ? Colors.green : Colors.transparent,
+        ),
+        padding: const EdgeInsets.all(6),
+        child: Icon(
+          icon,
+          color: _currentIndex == index
+              ? Colors.white
+              : const Color.fromARGB(255, 136, 136, 153),
+        ),
+      ),
+      label: label,
+    );
+  }
+}
