@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/Live_doctor/more/Live_Doctors_Page.dart';
 import 'package:hajzi/pages/find_search/Find_Doctors_Page.dart';
 import 'package:hajzi/pages/home/controls/Feature_Doctor.dart';
 import 'package:hajzi/pages/home/controls/Live_Doctor.dart';
@@ -46,15 +47,36 @@ class _HomePageState extends State<HomePage> {
           SliverList(
             delegate: SliverChildListDelegate([
               const SizedBox(height: 0),
+
+              // قسم Live Doctors مع إمكانية الضغط للذهاب للصفحة الكاملة
               MoreHeader(
                 title: "Live Doctors",
-                onMoreTap: () => navigateToPage(context, "Live Doctors"),
+                onMoreTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LiveDoctorsPage(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 10),
-              const LiveDoctor(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LiveDoctorsPage(),
+                    ),
+                  );
+                },
+                child: const LiveDoctor(), // Widget يعرض لمحة عن Live Doctors
+              ),
+
               const SizedBox(height: 20),
               const FutureBtn(),
               const SizedBox(height: 20),
+
               MoreHeader(
                 title: "Popular Doctor",
                 onMoreTap: () => navigateToPage(context, "Popular Doctor"),
@@ -62,6 +84,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10),
               const PopularDoctor(),
               const SizedBox(height: 20),
+
               MoreHeader(
                 title: "Feature Doctor",
                 onMoreTap: () => navigateToPage(context, "Feature Doctor"),
