@@ -38,10 +38,7 @@ class HeaderHomePage extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: Colors.white,
-              ),
+              icon: const Icon(Icons.settings, color: Colors.white),
               onPressed: () {},
             ),
           ),

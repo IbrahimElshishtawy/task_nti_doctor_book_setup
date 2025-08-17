@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/Live_doctor/Live_Page.dart';
 
 class LiveDoctorCard extends StatelessWidget {
   final String image;
@@ -38,16 +39,24 @@ class LiveDoctorCard extends StatelessWidget {
             ),
           ),
 
-          // أيقونة التشغيل في منتصف الصورة
+          // أيقونة التشغيل في منتصف الصورة مع الضغط للانتقال للـ LivePage
           Center(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black45,
-                shape: BoxShape.circle,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.play_arrow, color: Colors.white, size: 30),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LivePage()),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black45,
+                  shape: BoxShape.circle,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.play_arrow, color: Colors.white, size: 30),
+                ),
               ),
             ),
           ),
