@@ -59,27 +59,31 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[100],
       body: CustomScrollView(
         slivers: [
-          const HeaderHomePage(),
-
+          HeaderHomePage(
+            onSearchTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Scaffold(
+                    appBar: AppBar(title: const Text('Search Page')),
+                  ),
+                ),
+              );
+            },
+          ),
           SliverList(
             delegate: SliverChildListDelegate([
               const SizedBox(height: 10),
-
-              // Live Doctors Section
               sectionHeader(context, "Live Doctors"),
               const SizedBox(height: 10),
               const LiveDoctor(),
               const SizedBox(height: 10),
               const FutureBtn(),
               const SizedBox(height: 20),
-
-              // Popular Doctor Section
               sectionHeader(context, "Popular Doctor"),
               const SizedBox(height: 10),
               const PopularDoctor(),
               const SizedBox(height: 20),
-
-              // Feature Doctor Section
               sectionHeader(context, "Feature Doctor"),
               const SizedBox(height: 10),
               const FeatureDoctor(),

@@ -40,7 +40,7 @@ class HajziApp extends StatelessWidget {
           create: (_) => AuthCubit(
             FirebaseAuth.instance,
             FirebaseFirestore.instance,
-            GoogleSignIn.instance, // ← هنا نستخدم instance
+            GoogleSignIn.instance,
           ),
         ),
       ],
