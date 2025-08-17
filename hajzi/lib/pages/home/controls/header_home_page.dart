@@ -11,7 +11,7 @@ class HeaderHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: 170,
+      expandedHeight: 150,
       pinned: true,
       backgroundColor: Colors.transparent,
 

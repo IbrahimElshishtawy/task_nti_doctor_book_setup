@@ -73,11 +73,11 @@ class _HomePageState extends State<HomePage> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              const SizedBox(height: 10),
+              const SizedBox(height: 0),
               sectionHeader(context, "Live Doctors"),
               const SizedBox(height: 10),
               const LiveDoctor(),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               const FutureBtn(),
               const SizedBox(height: 20),
               sectionHeader(context, "Popular Doctor"),
