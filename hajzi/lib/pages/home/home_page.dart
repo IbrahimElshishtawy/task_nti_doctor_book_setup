@@ -5,6 +5,7 @@ import 'package:hajzi/pages/home/controls/Live_Doctor.dart';
 import 'package:hajzi/pages/home/controls/Popular_Doctor.dart';
 import 'package:hajzi/pages/home/controls/future_btn.dart';
 import 'package:hajzi/pages/home/controls/header_home_page.dart';
+import 'package:hajzi/pages/home/widget/more_header.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,32 +29,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget sectionHeader(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          InkWell(
-            onTap: () => navigateToPage(context, title),
-            child: const Text(
-              "More",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.blueAccent,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,17 +46,26 @@ class _HomePageState extends State<HomePage> {
           SliverList(
             delegate: SliverChildListDelegate([
               const SizedBox(height: 0),
-              sectionHeader(context, "Live Doctors"),
+              MoreHeader(
+                title: "Live Doctors",
+                onMoreTap: () => navigateToPage(context, "Live Doctors"),
+              ),
               const SizedBox(height: 10),
               const LiveDoctor(),
               const SizedBox(height: 20),
               const FutureBtn(),
               const SizedBox(height: 20),
-              sectionHeader(context, "Popular Doctor"),
+              MoreHeader(
+                title: "Popular Doctor",
+                onMoreTap: () => navigateToPage(context, "Popular Doctor"),
+              ),
               const SizedBox(height: 10),
               const PopularDoctor(),
               const SizedBox(height: 20),
-              sectionHeader(context, "Feature Doctor"),
+              MoreHeader(
+                title: "Feature Doctor",
+                onMoreTap: () => navigateToPage(context, "Feature Doctor"),
+              ),
               const SizedBox(height: 10),
               const FeatureDoctor(),
               const SizedBox(height: 20),
@@ -89,8 +73,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-
-      // Bottom Navigation Bar مع دائرة خضراء حول الأيقونة المحددة
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
