@@ -50,7 +50,12 @@ class TimeSelectionBody extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          const DoctorBookCard(),
+          DoctorBookCard(
+            name: "Dr. Shruti Kedia",
+            specialty: "Pediatrician, MBBS, MD",
+            image: "assets/images/feture4.png",
+          ),
+
           const SizedBox(height: 30),
 
           Align(

@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DoctorBookCard extends StatefulWidget {
-  const DoctorBookCard({super.key});
+  final String name;
+  final String specialty;
+  final String image;
+
+  const DoctorBookCard({
+    super.key,
+    required this.name,
+    required this.specialty,
+    required this.image,
+  });
 
   @override
   State<DoctorBookCard> createState() => _DoctorBookCardState();
@@ -17,37 +26,30 @@ class _DoctorBookCardState extends State<DoctorBookCard> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
         ],
       ),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 36,
-            backgroundImage: AssetImage("assets/images/feture4.png"),
-          ),
+          CircleAvatar(radius: 36, backgroundImage: AssetImage(widget.image)),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "Dr. Shruti Kedia",
-                  style: TextStyle(
+                  widget.name,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
-                  "Pediatrician, MBBS, MD",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  widget.specialty,
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, file_names
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,19 +8,40 @@ import 'package:hajzi/pages/Book/widget/doctor_book_card.dart';
 import 'package:hajzi/pages/Book/widget/booking_buttons.dart';
 
 class BookingPage extends StatelessWidget {
-  const BookingPage({super.key});
+  final String imageUrl;
+  final String nameDoctor;
+  final String specialty;
+
+  const BookingPage({
+    super.key,
+    required this.imageUrl,
+    required this.nameDoctor,
+    required this.specialty,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => BookingController(),
-      child: const _BookingView(),
+      child: _BookingView(
+        imageUrl: imageUrl,
+        nameDoctor: nameDoctor,
+        specialty: specialty,
+      ),
     );
   }
 }
 
 class _BookingView extends StatelessWidget {
-  const _BookingView();
+  final String imageUrl;
+  final String nameDoctor;
+  final String specialty;
+
+  const _BookingView({
+    required this.imageUrl,
+    required this.nameDoctor,
+    required this.specialty,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +73,12 @@ class _BookingView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DoctorBookCard(),
+            DoctorBookCard(
+              name: nameDoctor,
+              specialty: specialty,
+              image: imageUrl,
+            ),
+
             const SizedBox(height: 24),
             DaySelectorWidget(
               daysList: controller.daysList,

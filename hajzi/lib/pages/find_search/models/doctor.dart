@@ -41,9 +41,4 @@ class DoctorModel {
       'patients': patients,
     };
   }
-
-  //   Map<String, dynamic> toJson() {}
-
-  //   static fromJson(Map<String, dynamic> data) {}
-  //
 }

@@ -55,10 +55,15 @@ class DoctorCard extends StatelessWidget {
                 ),
                 AnimatedGradientButton(
                   onTap: () {
-                    // ✅ الانتقال لصفحة الحجز مع تمرير بيانات الدكتور
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => BookingPage()),
+                      MaterialPageRoute(
+                        builder: (context) => BookingPage(
+                          imageUrl: image, // من Card
+                          nameDoctor: name, // من Card
+                          specialty: specialty, // من Card
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -69,7 +74,6 @@ class DoctorCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 👨‍⚕️ Doctor Image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(14),
                   child: Image.asset(

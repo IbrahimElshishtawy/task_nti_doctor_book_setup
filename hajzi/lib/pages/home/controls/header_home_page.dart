@@ -1,11 +1,18 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/profile/Profile_Page.dart';
+import 'package:hajzi/models/user_model.dart';
 
 class HeaderHomePage extends StatelessWidget {
-  const HeaderHomePage({super.key, required this.onSearchTap});
-
   final VoidCallback onSearchTap;
+  final UserModel user; // إضافة متغير user
+
+  const HeaderHomePage({
+    super.key,
+    required this.onSearchTap,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +22,35 @@ class HeaderHomePage extends StatelessWidget {
       pinned: true,
       backgroundColor: Colors.transparent,
 
-      // 🟢 الجزء الثابت (Avatar + الاسم + النوتيفيكيشن)
       title: Row(
         children: [
-          const CircleAvatar(
-            radius: 20,
-            backgroundImage: AssetImage("assets/images/feture2.png"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ProfilePage(user: user)),
+              );
+            },
+            child: CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage(user.imagePath),
+            ),
           ),
           const SizedBox(width: 10),
-          const Text(
-            "Hi, Ahmed",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ProfilePage(user: user)),
+              );
+            },
+            child: Text(
+              "Hi, ${user.name}",
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           const Spacer(),
@@ -45,7 +67,7 @@ class HeaderHomePage extends StatelessWidget {
         ],
       ),
 
-      // 🟢 الخلفية + بوكس البحث (يتحركوا مع الاسكرول)
+      // الخلفية + بوكس البحث
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [
@@ -66,7 +88,6 @@ class HeaderHomePage extends StatelessWidget {
               ),
             ),
 
-            // بوكس البحث
             Positioned(
               left: 10,
               right: 10,

@@ -1,6 +1,7 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unused_label
 
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/Book/Booking_Page_doctor.dart';
 
 class DoctorCardFeatured extends StatelessWidget {
   final Map<String, dynamic> doctor;
@@ -12,7 +13,6 @@ class DoctorCardFeatured extends StatelessWidget {
     required this.index,
   });
 
-  // دالة لإنشاء نجوم التقييم
   List<Widget> buildRatingStars(double rating) {
     List<Widget> stars = [];
     for (int i = 1; i <= 5; i++) {
@@ -123,20 +123,19 @@ class DoctorCardFeatured extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: const Text("Book Appointment"),
-                          content: Text("Booking with $name"),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text("Close"),
-                            ),
-                          ],
+                      // Navigate to BookingPage when pressing the Book button
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingPage(
+                            imageUrl: image,
+                            nameDoctor: name,
+                            specialty: specialty,
+                          ),
                         ),
                       );
                     },
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 64, 251, 136),
                       shape: RoundedRectangleBorder(
