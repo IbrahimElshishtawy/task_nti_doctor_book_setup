@@ -48,7 +48,9 @@ class HajziApp extends StatelessWidget {
         title: 'Medical App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF00C6A2)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 0, 198, 76),
+          ),
           useMaterial3: true,
         ),
         initialRoute: '/',

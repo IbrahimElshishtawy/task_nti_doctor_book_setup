@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hajzi/models/user_model.dart';
 
 import 'package:hajzi/pages/FavoriteDoctors/pages/favorite_doctors_page.dart';
+import 'package:hajzi/pages/chat/ui/chat_page.dart';
 import 'package:hajzi/pages/home/home_page_content.dart';
 
 class HomePage extends StatefulWidget {
@@ -72,26 +73,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // صفحة الرسائل
-          SingleChildScrollView(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: List.generate(
-                    10,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        "Message ${index + 1}",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          ChatPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
