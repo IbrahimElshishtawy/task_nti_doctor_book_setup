@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hajzi/models/user_model.dart';
-import 'package:hajzi/pages/FavoriteDoctors/FavoriteDoctorsPage.dart';
+
+import 'package:hajzi/pages/FavoriteDoctors/pages/favorite_doctors_page.dart';
 import 'package:hajzi/pages/home/home_page_content.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,13 +15,12 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
-  // تعريف المستخدم الحالي
   final UserModel currentUser = UserModel(
     name: "Ahmed Ali",
     email: "ahmed.ali@gmail.com",
     phone: "+20 123 456 789",
     address: "123 Street, Cairo, Egypt",
-    about: "Passionate doctor with 5 years expe rience in healthcare.",
+    about: "Passionate doctor with 5 years experience in healthcare.",
     imageUrl: "assets/images/feture2.png",
     rating: 4.5,
     id: '2',
@@ -45,11 +45,11 @@ class _HomePageState extends State<HomePage> {
           });
         },
         children: [
-          // الصفحة الرئيسية مع تمرير المستخدم الحالي
+          // الصفحة الرئيسية
           HomePageContent(user: currentUser),
 
-          // صفحة المفضلة
-          SingleChildScrollView(child: FavoriteDoctorsPage()),
+          // صفحة المفضلة بدون SingleChildScrollView
+          FavoriteDoctorsPage(),
 
           // صفحة الكتب
           SingleChildScrollView(
