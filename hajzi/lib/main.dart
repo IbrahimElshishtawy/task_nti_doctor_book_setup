@@ -53,11 +53,11 @@ class HajziApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/home': (context) => const SplashPage(),
+          '/': (context) => const SplashPage(),
           '/onboarding': (context) => const OnboardingPage(),
           '/login': (context) => LoginPage(),
           '/register': (context) => const RegisterPage(),
-          '/': (context) => const HomePage(),
+          '/home': (context) => const HomePage(),
         },
       ),
     );

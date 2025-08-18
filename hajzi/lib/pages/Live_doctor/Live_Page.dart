@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, file_names
+
 import 'package:flutter/material.dart';
 import 'widgets/comment_item.dart';
 import 'widgets/comment_input.dart';

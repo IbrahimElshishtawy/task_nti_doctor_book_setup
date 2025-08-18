@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/Book/Booking_Page_doctor.dart';
 import 'animated_gradient_button.dart';
 
 class DoctorCard extends StatelessWidget {
@@ -52,7 +55,11 @@ class DoctorCard extends StatelessWidget {
                 ),
                 AnimatedGradientButton(
                   onTap: () {
-                    // TODO: Navigate to booking page
+                    // ✅ الانتقال لصفحة الحجز مع تمرير بيانات الدكتور
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookingPage()),
+                    );
                   },
                 ),
               ],

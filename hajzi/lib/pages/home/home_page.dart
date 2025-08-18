@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hajzi/pages/Live_doctor/more/Live_Doctors_Page.dart';
+import 'package:hajzi/pages/more/Featured_Doctors_Page_more.dart';
+import 'package:hajzi/pages/more/Live_Doctors_Page.dart';
 import 'package:hajzi/pages/find_search/Find_Doctors_Page.dart';
 import 'package:hajzi/pages/home/controls/Feature_Doctor.dart';
 import 'package:hajzi/pages/home/controls/Live_Doctor.dart';
@@ -7,6 +8,7 @@ import 'package:hajzi/pages/home/controls/Popular_Doctor.dart';
 import 'package:hajzi/pages/home/controls/future_btn.dart';
 import 'package:hajzi/pages/home/controls/header_home_page.dart';
 import 'package:hajzi/pages/home/widget/more_header.dart';
+import 'package:hajzi/pages/more/Popular_Doctors_Page_more.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -79,15 +81,30 @@ class _HomePageState extends State<HomePage> {
 
               MoreHeader(
                 title: "Popular Doctor",
-                onMoreTap: () => navigateToPage(context, "Popular Doctor"),
+                onMoreTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PopularDoctorsPage(),
+                    ),
+                  );
+                },
               ),
+
               const SizedBox(height: 10),
               const PopularDoctor(),
               const SizedBox(height: 20),
 
               MoreHeader(
                 title: "Feature Doctor",
-                onMoreTap: () => navigateToPage(context, "Feature Doctor"),
+                onMoreTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FeaturedDoctorsPage(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               const FeatureDoctor(),

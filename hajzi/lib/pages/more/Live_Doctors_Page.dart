@@ -1,6 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:hajzi/pages/Live_doctor/Live_Page.dart';
-import 'package:hajzi/pages/Live_doctor/more/widget/doctor_card_live_more.dart';
+import 'package:hajzi/pages/more/widget/doctor_card_live_more.dart';
 
 class LiveDoctorsPage extends StatelessWidget {
   const LiveDoctorsPage({super.key});
