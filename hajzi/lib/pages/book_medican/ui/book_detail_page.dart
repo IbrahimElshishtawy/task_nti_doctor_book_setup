@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/pages/book_medican/book_detail/book_appbar.dart';
+import 'package:hajzi/pages/book_medican/book_detail/book_description.dart';
+import 'package:hajzi/pages/book_medican/book_detail/book_header.dart';
+import 'package:hajzi/pages/book_medican/book_detail/read_button.dart';
 import '../data/books_data.dart';
 
 class BookDetailPage extends StatelessWidget {
@@ -9,36 +13,27 @@ class BookDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(book.title)),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Image.asset(book.image, height: 200),
-            const SizedBox(height: 20),
-            Text(
-              book.title,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      backgroundColor: Colors.grey[100],
+      body: CustomScrollView(
+        slivers: [
+          BookAppBar(book: book),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BookHeader(book: book),
+                  const SizedBox(height: 30),
+                  BookDescription(book: book),
+                  const SizedBox(height: 35),
+                  const Center(child: ReadButton()),
+                  const SizedBox(height: 25),
+                ],
+              ),
             ),
-            Text(
-              "By ${book.author}",
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 10),
-            Text("⭐ ${book.rating}", style: const TextStyle(fontSize: 16)),
-            const SizedBox(height: 10),
-            Text(
-              "Published: ${book.publishedDate}",
-              style: const TextStyle(fontSize: 14),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              book.description,
-              style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.justify,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
