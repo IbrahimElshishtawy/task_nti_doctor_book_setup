@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hajzi/models/user_model.dart';
 
 import 'package:hajzi/pages/FavoriteDoctors/pages/favorite_doctors_page.dart';
+
+import 'package:hajzi/pages/book_medican/ui/medical_books_page.dart';
 import 'package:hajzi/pages/chat/ui/chat_page.dart';
 import 'package:hajzi/pages/home/home_page_content.dart';
 
@@ -40,57 +42,39 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[100],
       body: PageView(
         controller: _pageController,
+        physics: const BouncingScrollPhysics(), // يدي إحساس انسيابي
         onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
         children: [
-          // الصفحة الرئيسية
           HomePageContent(user: currentUser),
-
-          // صفحة المفضلة بدون SingleChildScrollView
           FavoriteDoctorsPage(),
-
-          // صفحة الكتب
-          SingleChildScrollView(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: List.generate(
-                    15,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        "Book Item ${index + 1}",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
+          MedicalBooksPage(),
           ChatPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() => _currentIndex = index);
+
+          // تنقل سلس جداً
           _pageController.animateToPage(
             index,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 200), // أسرع
+            curve: Curves.easeOutCubic, // انسيابي
           );
         },
         backgroundColor: Colors.white,
+        selectedFontSize: 13,
+        unselectedFontSize: 12,
         items: [
           _buildNavItem(Icons.home, "Home", 0),
           _buildNavItem(Icons.favorite, "Favorite", 1),
-          _buildNavItem(Icons.book, "Book", 2),
+          _buildNavItem(Icons.book, "Books", 2),
           _buildNavItem(Icons.message, "Messages", 3),
         ],
       ),
@@ -103,7 +87,8 @@ class _HomePageState extends State<HomePage> {
     int index,
   ) {
     return BottomNavigationBarItem(
-      icon: Container(
+      icon: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: _currentIndex == index ? Colors.green : Colors.transparent,
