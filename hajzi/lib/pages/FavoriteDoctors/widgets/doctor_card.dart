@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class DoctorCard extends StatefulWidget {
@@ -32,7 +34,10 @@ class _DoctorCardState extends State<DoctorCard> {
           borderRadius: BorderRadius.circular(24),
           gradient: LinearGradient(
             colors: _isHovered
-                ? [Colors.tealAccent.shade200, Colors.tealAccent.shade400]
+                ? [
+                    const Color.fromARGB(255, 100, 255, 126),
+                    const Color.fromARGB(255, 29, 233, 97),
+                  ]
                 : [Colors.white, Colors.tealAccent.shade100],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
