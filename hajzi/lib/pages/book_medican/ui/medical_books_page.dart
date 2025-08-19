@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hajzi/pages/book_medican/logic/books_logic.dart';
-import '../design/book_widgets.dart';
+import 'package:hajzi/pages/book_medican/widget/book_card.dart';
+import 'package:hajzi/pages/book_medican/widget/category_card.dart';
+import '../data/books_data.dart';
+import '../logic/books_logic.dart';
 
-class MedicalBooksPage extends StatelessWidget {
-  const MedicalBooksPage({super.key});
+import 'book_detail_page.dart';
+
+class BooksPage extends StatelessWidget {
+  const BooksPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final categories = BooksLogic.getCategories();
-    final topRatedBooks = BooksLogic.getTopRatedBooks();
-    final newBooks = BooksLogic.getNewBooks();
+    final logic = BooksLogic();
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         title: const Text("Medical Books"),
         centerTitle: true,
@@ -24,56 +25,99 @@ class MedicalBooksPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Categories Row
+            // الفئات
+            const Text(
+              "Categories",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             SizedBox(
-              height: 90,
-              child: ListView.builder(
+              height: 80,
+              child: ListView(
                 scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return CategoryCard(
-                    name: categories[index]["name"],
-                    icon: categories[index]["icon"],
+                children: categories
+                    .map(
+                      (cat) => Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: CategoryCardbook(
+                          category: cat["name"], // ✅ الاسم
+                          icon: cat["icon"], // ✅ الأيقون
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => BookDetailPage(
+                                  book: logic
+                                      .getBooksByCategory(cat["name"])
+                                      .first,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // الكتب الأعلى تقييم
+            const Text(
+              "Top Rated",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 220,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: logic.getTopRatedBooks().take(3).map((book) {
+                  // ✅ بس 3
+                  return SizedBox(
+                    width: 140,
+                    child: BookCardm(
+                      book: book,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BookDetailPage(book: book),
+                          ),
+                        );
+                      },
+                    ),
                   );
-                },
+                }).toList(),
               ),
             ),
 
             const SizedBox(height: 20),
 
-            // Top Rated Books
+            // الكتب الجديدة
             const Text(
-              "Top Rated Books",
+              "New Releases",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
             SizedBox(
               height: 220,
-              child: ListView.builder(
+              child: ListView(
                 scrollDirection: Axis.horizontal,
-                itemCount: topRatedBooks.length,
-                itemBuilder: (context, index) {
-                  return BookCard(book: topRatedBooks[index]);
-                },
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // New Arrivals
-            const Text(
-              "New Arrivals",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 220,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: newBooks.length,
-                itemBuilder: (context, index) {
-                  return BookCard(book: newBooks[index]);
-                },
+                children: logic.getNewBooks().take(3).map((book) {
+                  // ✅ بس 3
+                  return SizedBox(
+                    width: 140,
+                    child: BookCardm(
+                      book: book,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BookDetailPage(book: book),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],

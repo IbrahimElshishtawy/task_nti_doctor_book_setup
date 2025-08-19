@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hajzi/pages/home/contants/home_page_content.dart';
 import 'package:provider/provider.dart';
-import 'package:hajzi/pages/FavoriteDoctors/pages/favorite_doctors_page.dart';
+import 'package:hajzi/pages/FavoriteDoctors/ui/favorite_doctors_page.dart';
 import 'package:hajzi/pages/book_medican/ui/medical_books_page.dart';
 import 'package:hajzi/pages/chat/ui/chat_page.dart';
 import '../logic/home_page_cubit.dart';
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
               children: [
                 HomePageContent(user: currentUser),
                 const FavoriteDoctorsPage(),
-                const MedicalBooksPage(),
+                const BooksPage(),
                 const ChatPage(),
               ],
             ),

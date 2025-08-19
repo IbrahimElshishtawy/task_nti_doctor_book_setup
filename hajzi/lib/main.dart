@@ -8,11 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hajzi/pages/auth/Register_page.dart';
 import 'package:hajzi/pages/home/ui/home_page.dart';
-
-// Cubits
 import 'cubits/auth/auth_cubit.dart';
-
-// Pages
 import 'pages/auth/login.dart';
 import 'pages/splash/splash_page.dart';
 import 'pages/splash/onboarding_page.dart';

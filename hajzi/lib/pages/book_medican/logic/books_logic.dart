@@ -1,18 +1,15 @@
 import '../data/books_data.dart';
 
 class BooksLogic {
-  // Get all categories
-  static List<Map<String, dynamic>> getCategories() {
-    return BooksData.categories;
+  List<Book> getTopRatedBooks() {
+    return books.where((book) => book.rating > 4.7).toList();
   }
 
-  // Get top rated books
-  static List<Map<String, dynamic>> getTopRatedBooks() {
-    return BooksData.topRatedBooks;
+  List<Book> getNewBooks() {
+    return books.where((book) => book.publishedDate == "2025").toList();
   }
 
-  // Get new arrivals
-  static List<Map<String, dynamic>> getNewBooks() {
-    return BooksData.newBooks;
+  List<Book> getBooksByCategory(String category) {
+    return books.where((book) => book.category == category).toList();
   }
 }
