@@ -1,11 +1,13 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:hajzi/pages/Settings/widget/glass_card.dart';
 import 'package:hajzi/pages/Settings/widget/list_tile_item.dart';
-import 'dart:ui';
-
 import 'package:hajzi/pages/Settings/widget/profile_card.dart';
 import 'package:hajzi/pages/Settings/widget/section_title.dart';
 import 'package:hajzi/pages/Settings/widget/switch_tile.dart';
+
+import 'package:hajzi/pages/home/data/current_user.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -48,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ListView(
             padding: const EdgeInsets.fromLTRB(16, 100, 16, 16),
             children: [
-              const ProfileCard(),
+              ProfileCard(user: currentUser), // ✅ هنا التعديل
               const SizedBox(height: 25),
 
               const SectionTitle("General"),

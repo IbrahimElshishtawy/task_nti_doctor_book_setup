@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:hajzi/pages/home/widget/more_header.dart';
 import 'package:hajzi/pages/more/Popular_Doctors_Page_more.dart';

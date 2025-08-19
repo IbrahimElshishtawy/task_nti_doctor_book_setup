@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hajzi/pages/chat/widget/custom_appbar.dart';

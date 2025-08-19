@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:hajzi/models/user_model.dart';
+import 'package:hajzi/pages/profile/Profile_Page.dart';
 import 'glass_card.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+  final UserModel user;
+
+  const ProfileCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return GlassCard(
       child: ListTile(
-        leading: const CircleAvatar(
+        leading: CircleAvatar(
           radius: 28,
-          backgroundImage: AssetImage("assets/images/profile.png"),
+          backgroundImage: AssetImage(user.imageUrl),
         ),
-        title: const Text(
-          "Ibrahim Elsheshtawy",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        title: Text(
+          user.name,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         subtitle: const Text(
           "View profile",
@@ -25,7 +32,12 @@ class ProfileCard extends StatelessWidget {
           size: 18,
           color: Colors.white,
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ProfilePage(user: user)),
+          );
+        },
       ),
     );
   }
